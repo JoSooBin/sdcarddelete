@@ -55,8 +55,8 @@ public class SecondActivity extends AppCompatActivity {
 
         public void findFolder1(){
             ArrayList<String> fName1 = new ArrayList<>(); //배열 fName1에 다 있음?
-            File files1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Pictures");
-            ArrayAdapter<String> filelist = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,fName1);
+            File files1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Pictures"); //경로에서 파일 찾기
+            ArrayAdapter<String> filelist = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,fName1); //fName1를 리스트레이아웃으로 반환
             if(files1.listFiles().length>0){
                 for(File file : files1.listFiles()){
                     fName1.add(formatFileSize(file.length()));//formatFileSize 메소드 사용해서 long -> byte으로 바꿔줌
