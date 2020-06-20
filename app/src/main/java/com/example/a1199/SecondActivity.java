@@ -28,11 +28,11 @@ public class SecondActivity extends AppCompatActivity {
             setContentView(R.layout.second);
             setTitle("파일별 용량(Second Activity)");
 
-            initView();
+            initView1();
 
             String ext = Environment.getExternalStorageState();
             if(ext.equals(Environment.MEDIA_MOUNTED)){
-                findFolder();
+                findFolder1();
             }else{
                 Toast.makeText(this, "SDcard가 확인되지않습니다", Toast.LENGTH_SHORT).show();
             }
@@ -49,11 +49,11 @@ public class SecondActivity extends AppCompatActivity {
             });
         }
 
-        public void initView(){
+        public void initView1(){
             fFind_ListView1 = (ListView)findViewById(R.id.list1);
         }
 
-        public void findFolder(){
+        public void findFolder1(){
             ArrayList<String> fName1 = new ArrayList<>(); //배열 fName1에 다 있음?
             File files1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Pictures");
             ArrayAdapter<String> filelist = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,fName1);
