@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void DClick1() { //삭제를 위한 빌드업
-                //ArrayList<String> list = new ArrayList<>();//리스트 list 생성
+                //ArrayList<String> list = new ArrayList<>();//리스트 list 생성. 커밋되는거야?
                 File list = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Pictures");//경로지정. //Pictures경로 하위에서 파일들 가져오기
                 List<String> fName1 = new ArrayList<>(); //리스트 fName1생성
                 List<String> fName2 = new ArrayList<>(); //리스트 fName1생성
