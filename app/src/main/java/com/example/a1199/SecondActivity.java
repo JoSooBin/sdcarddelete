@@ -17,16 +17,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SecondActivity extends AppCompatActivity {
 
         ListView fFind_ListView1;
+        Button delete2;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.second);
             setTitle("파일별 용량(Second Activity)");
+            delete2 = (Button) findViewById(R.id.delete);
 
             initView1();
 
@@ -47,7 +50,59 @@ public class SecondActivity extends AppCompatActivity {
                     finish();
                 }
             });
+
+            this.DClick();
         }
+
+    public void DClick() { //삭제
+        delete2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                initView1();
+
+                String ext = Environment.getExternalStorageState();
+                if(ext.equals(Environment.MEDIA_MOUNTED)){
+                    DClick1();
+
+                    Toast.makeText(SecondActivity.this, "중복파일이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(SecondActivity.this, "SDcard가 확인되지않습니다", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+    public void DClick1() { //삭제를 위한 빌드업
+        ArrayList<String> list = new ArrayList<>();//리스트 list 생성
+        List<String> fName1 = new ArrayList<>(); //리스트 fName1생성
+
+        File files1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Pictures");//경로지정. //Pictures경로 하위에서 파일들 가져오기
+        File files2 = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Pictures");//경로지정. //Pictures경로 하위에서 파일들 가져오기
+
+        ArrayAdapter<String> filelist1 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,list); //filelist1에 list리스트를 ListView에 띄울것임을 선언
+        if(files1.listFiles().length>0){
+            for(File file : files1.listFiles()){
+                fName1.add(formatFileSize(file.length()));//formatFileSize 메소드 사용해서 long -> byte으로 바꿔줌 //각 파일의 용량 찾아서 리스트 fName1에 저장
+
+//                int valueLength = files1.listFiles().length;
+//                for(int i = 0; i <= valueLength; i++ ){
+//                    for(File file1 : files1.listFiles())
+//                        !(files1[i].formatFileSize(file1.length()) == formatFileSize(file1.length()));
+//                }
+            }
+        }
+
+        for(int i=0; i<fName1.size(); i++){ // fName1에서 중복 항목을 빼고 list에 넣기위한 반복문
+            if(!list.contains(fName1.get(i))) {   // list에 포함되어있는지 아닌지 체크
+                list.add(fName1.get(i)); // 해당 값이 없으면 넣기
+            }
+        }
+
+        fFind_ListView1.setAdapter(filelist1);//filelist1을 보내기
+
+    }
 
         public void initView1(){
             fFind_ListView1 = (ListView)findViewById(R.id.list1);

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         this.RClick();
         fileSize1.setOnClickListener(new View.OnClickListener() {
                                        @Override
-                                       public void onClick(View v) {
+                                       public void onClick(View v) { //새창으로 용량 확인하기
                                            Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
                                            startActivity(intent);
                                        }
@@ -95,11 +96,18 @@ public class MainActivity extends AppCompatActivity {
         List<String> fName1 = new ArrayList<>(); //리스트 fName1생성
 
         File files1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Pictures");//경로지정. //Pictures경로 하위에서 파일들 가져오기
+        File files2 = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Pictures");//경로지정. //Pictures경로 하위에서 파일들 가져오기
 
         ArrayAdapter<String> filelist1 = new ArrayAdapter<String>(this, layout.simple_list_item_1,list); //filelist1에 list리스트를 ListView에 띄울것임을 선언
         if(files1.listFiles().length>0){
             for(File file : files1.listFiles()){
-                fName1.add(formatFileSize(file.length()));//formatFileSize 메소드 사용해서 long -> byte으로 바꿔줌 //각 파일의 용량 찾아서 리스트 fName1에 저장
+               fName1.add(formatFileSize(file.length()));//formatFileSize 메소드 사용해서 long -> byte으로 바꿔줌 //각 파일의 용량 찾아서 리스트 fName1에 저장
+
+//                int valueLength = files1.listFiles().length;
+//                for(int i = 0; i <= valueLength; i++ ){
+//                    for(File file1 : files1.listFiles())
+//                        !(files1[i].formatFileSize(file1.length()) == formatFileSize(file1.length()));
+//                }
             }
         }
 
